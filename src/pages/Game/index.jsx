@@ -1,27 +1,44 @@
 import React, { useState, useEffect } from "react";
-import Node from "../components/Node";
-import "./Pathfind.css";
-import Astar from "../algorithms/astar";
-import myAlg from "../algorithms/myAlg";
+import GameStyle from "./style";
+import Node from "../../components/Node";
+import Astar from "../../algorithms/astar";
+import { Link } from "react-router-dom";
 
-const cols = 10;
-const rows = 10;
-const NODE_START_ROW = 0;
-const NODE_START_COL = 0;
-const NODE_END_ROW = rows - 9;
-const NODE_END_COL = cols - 9;
+const cols = localStorage.getItem("xCorSize")
+  ? parseInt(localStorage.getItem("xCorSize"))
+  : 10;
+const rows = localStorage.getItem("yCorSize")
+  ? parseInt(localStorage.getItem("yCorSize"))
+  : 10;
+const NODE_START_ROW = localStorage.getItem("yStartCor")
+  ? parseInt(localStorage.getItem("yStartCor"))
+  : 0;
+const NODE_START_COL = localStorage.getItem("xStartCor")
+  ? parseInt(localStorage.getItem("xStartCor"))
+  : 4;
+const NODE_END_ROW = localStorage.getItem("xEndCor")
+  ? parseInt(localStorage.getItem("xEndCor"))
+  : rows - 1;
+const NODE_END_COL = localStorage.getItem("yEndCor")
+  ? parseInt(localStorage.getItem("yEndCor"))
+  : cols - 1;
+
+console.log("cols", cols);
+console.log("rows", rows);
+console.log("NODE_START_ROW", NODE_START_ROW);
+console.log("NODE_START_COL", NODE_START_COL);
+console.log("NODE_END_ROW", NODE_END_ROW);
+console.log("NODE_END_COL", NODE_END_COL);
 
 const Pathfind = () => {
   const [Grid, setGrid] = useState([]);
   const [Path, setPath] = useState([]);
   const [VisitedNodes, setVisitedNodes] = useState([]);
-  const [level, setLevel] = useState(5); //level number decides number of blocks, lvl 0 = 0blocks, lvl 1 = 1block etc...
+  const [level, setLevel] = useState(
+    localStorage.getItem("level") ? localStorage.getItem("level") : 0
+  ); //level number decides number of blocks, lvl 0 = 0blocks, lvl 1 = 1block etc...
 
   useEffect(() => {
-    let alg = localStorage.getItem("algorithm");
-    if (!alg) {
-      localStorage.setItem("algorithm", "astar-around");
-    }
     initializeGrid();
   }, []);
 
@@ -39,13 +56,9 @@ const Pathfind = () => {
     const startNode = grid[NODE_START_ROW][NODE_START_COL];
     const endNode = grid[NODE_END_ROW][NODE_END_COL];
     const path = Astar(startNode, endNode);
-    const tetreb = myAlg(grid, startNode, endNode);
     startNode.isWall = false;
     endNode.isWall = false;
-    // setPath(path.path.reverse());
-    console.log("tetreb", tetreb);
-    // setPath(tetreb.path.reverse());
-
+    setPath(path.path.reverse());
     setVisitedNodes(path.visitedNodes);
   };
 
@@ -91,9 +104,7 @@ const Pathfind = () => {
       }
     }
   };
-
   // Spot Constructor
-
   function Spot(i, j) {
     this.x = i; //row
     this.y = j; //column
@@ -216,26 +227,29 @@ const Pathfind = () => {
     }
   };
 
-  const chooseAlgorithm = (e) => {
-    localStorage.setItem("algorithm", e.target.value);
-    window.location.reload();
-  };
+  // initializing visualization of the path
 
+  if (localStorage.getItem("automatic") === "automatic") {
+    setTimeout(() => {
+      visualizePath();
+    }, 1000);
+  }
   return (
-    <div className="Wrapper">
-      <select
-        onChange={chooseAlgorithm}
-        defaultValue={localStorage.getItem("algorithm")}
-      >
-        <option value="astar-cross">ASTAR CROSS</option>
-        <option value="astar-around">ASTAR AROUND</option>
-      </select>
+    <GameStyle>
+      <div className="Wrapper">
+        <div className="buttons">
+          <Link to="/">Go Back to Config</Link>
 
-      <button onClick={visualizePath}>Visualize PATH</button>
-
-      <h1>Pathfind Cimponent</h1>
-      {gridWithNode}
-    </div>
+          {localStorage.getItem("automatic") === "manual" ? (
+            <button className="visualize" onClick={visualizePath}>
+              Visualize PATH
+            </button>
+          ) : null}
+        </div>
+        <h1>Pathfind UI</h1>
+        {gridWithNode}
+      </div>
+    </GameStyle>
   );
 };
 

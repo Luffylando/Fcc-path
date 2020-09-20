@@ -1,5 +1,5 @@
 import React from "react";
-import "./Node.css";
+import NodeStyle from "./nodestyle.jsx";
 
 const Node = ({ isStart, isEnd, row, col, isWall }) => {
   const classes = isStart
@@ -9,7 +9,11 @@ const Node = ({ isStart, isEnd, row, col, isWall }) => {
     : isEnd
     ? "node-end"
     : "";
-  return <div className={`node ${classes}`} id={`node-${row}-${col}`}></div>;
+  return (
+    <NodeStyle>
+      <div className={`node ${classes}`} id={`node-${row}-${col}`}></div>
+    </NodeStyle>
+  );
 };
 
 export default Node;
