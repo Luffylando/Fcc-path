@@ -7,4 +7,4 @@ Steps to start the app:
 3. Start the project from root folder by running: `npm start`
 4. The rest is self-explanatory from the home UI.
    - You can choose level, algorithm, field size, starting and ending position from the configuration page.
-   - Everything got default paramethers, so it's posible to just run app, by pressing button run without chaning any config.
+   - Everything got default paramethers, so it's posible to just run app by pressing button run without changeing any config.
