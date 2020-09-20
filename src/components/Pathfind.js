@@ -8,8 +8,8 @@ const cols = 10;
 const rows = 10;
 const NODE_START_ROW = 0;
 const NODE_START_COL = 0;
-const NODE_END_ROW = rows - 1;
-const NODE_END_COL = cols - 1;
+const NODE_END_ROW = rows - 9;
+const NODE_END_COL = cols - 9;
 
 const Pathfind = () => {
   const [Grid, setGrid] = useState([]);
@@ -40,13 +40,11 @@ const Pathfind = () => {
     const endNode = grid[NODE_END_ROW][NODE_END_COL];
     const path = Astar(startNode, endNode);
     const tetreb = myAlg(grid, startNode, endNode);
-
-    console.log("tetreb", tetreb);
-    console.log("path", path);
     startNode.isWall = false;
     endNode.isWall = false;
     // setPath(path.path.reverse());
-    setPath(path);
+    console.log("tetreb", tetreb);
+    // setPath(tetreb.path.reverse());
 
     setVisitedNodes(path.visitedNodes);
   };

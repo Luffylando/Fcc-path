@@ -6,18 +6,31 @@ const myAlg = (grid, startNode, endNode) => {
 
       if (grid[i][j].x > 0) {
         grid[i][j].left = {
-          ...grid[i][j],
           x: grid[i][j].x - 1,
           y: grid[i][j].y,
         };
-        grid[i][j].top = { x: grid[i][j].x, y: grid[i][j].y - 1 };
       }
-      grid[i][j].right = { x: grid[i][j].x + 1, y: grid[i][j].y };
-      grid[i][j].bottom = { x: grid[i][j].x, y: grid[i][j].y + 1 };
+      if (grid[i][j].x < 9) {
+        grid[i][j].right = {
+          x: grid[i][j].x + 1,
+          y: grid[i][j].y,
+        };
+      }
+      if (grid[i][j].y > 0) {
+        grid[i][j].top = {
+          x: grid[i][j].x,
+          y: grid[i][j].y - 1,
+        };
+      }
+      if (grid[i][j].y < 9) {
+        grid[i][j].bottom = {
+          x: grid[i][j].x,
+          y: grid[i][j].y + 1,
+        };
+      }
       elements.push(grid[i][j]);
     }
   }
-
   let queue = [];
   let path = [];
   // populate it with the node that will be the root of your search
@@ -27,37 +40,41 @@ const myAlg = (grid, startNode, endNode) => {
   while (queue.length > 0) {
     // assign the top of the queue to variable currentNode
     let currentNode = queue[0];
-    console.log("CCCCC", currentNode);
-    path.push(currentNode.value);
+    path.push(currentNode);
 
     // if currentNode is the node we're searching for, break & alert
+    console.log("currentNode", currentNode);
+    console.log("endNode", endNode);
     if (currentNode.value === endNode.value) {
       console.log("Found it!");
       return { path, visitedNodes: elements };
     }
 
-    console.log("path", path);
-    console.log("gridddddd", grid);
     // if currentNode has a bottom child node, add it to the queue.
     if (currentNode.bottom !== undefined && currentNode.bottom.y < 10) {
+      console.log("currentNode B", currentNode);
       queue.push(grid[currentNode.bottom.x][currentNode.bottom.y]);
-      console.log("pushed bottom Node");
+      console.log("queque B", queue);
+      console.log("path", path);
+      return;
     }
     // if currentNode has a right child node, add it to the queue.
-    else if (currentNode.right !== undefined) {
+    else if (currentNode.right !== undefined && currentNode.right.x < 10) {
+      console.log("currentNode R", currentNode);
       queue.push(grid[currentNode.right.x][currentNode.right.y]);
-      console.log("pushed right Node");
+      console.log("queque B", queue);
+      console.log("path", path);
     }
     // if currentNode has a left child node, add it to the queue.
-    else if (currentNode.left !== undefined) {
-      console.log("from left check path", path);
+    else if (currentNode.left !== undefined && currentNode.left.x > 0) {
+      console.log("currentNode L", currentNode);
+
       queue.push(grid[currentNode.left.x][currentNode.left.y]);
-      console.log("pushed left Node");
     }
     // if currentNode has a left child node, add it to the queue.
-    else if (currentNode.top !== undefined) {
+    else if (currentNode.top !== undefined && currentNode.top.y > 0) {
+      console.log("currentNode T", currentNode);
       queue.push(grid[currentNode.top.x][currentNode.top.y]);
-      console.log("pushed top Node");
     }
 
     // remove the currentNode from the queue.
