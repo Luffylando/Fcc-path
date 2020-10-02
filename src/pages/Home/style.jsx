@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const HomeStyle = styled.div`
-    padding: 75px 260px;
+    padding: 125px 260px;
     height: calc(100vh - 210px);
     display: flex;
     flex-direction: column;

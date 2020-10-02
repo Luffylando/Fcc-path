@@ -282,10 +282,10 @@ const Pathfind = () => {
 		<GameStyle>
 			<div className="Wrapper">
 				<div className="buttons">
-					<Link to="/" onClick={() => { localStorage.setItem('automatic', 'manual'); }}>Go Back to Config</Link>
 
 					{localStorage.getItem('automatic') === 'manual' ? (
 						<>
+							<Link to="/" onClick={() => { localStorage.setItem('automatic', 'manual'); }}>Go Back to Config</Link>
 							<button type="button" className="visualize" onClick={visualizePath}>
 								Visualize PATH
 							</button>
@@ -293,7 +293,7 @@ const Pathfind = () => {
 								{parseInt(level, 10) === 9 ? 'Go to the 1st level.' : 'Go to the next Level'}
 							</button>
 						</>
-					) : null}
+					) : <p>Program will return on config screen after it finishes all game levels.</p>}
 				</div>
 				<h1>Pathfind UI</h1>
 				{algorithmName ? <h4>{algorithmName}</h4> : null}
