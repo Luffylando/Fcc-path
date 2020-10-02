@@ -1,16 +1,14 @@
-import React from "react";
-import NavbarStyle from "./style";
-import { Link } from "react-router-dom";
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React from 'react';
+import { Link } from 'react-router-dom';
+import NavbarStyle from './style';
 
-const Navbar = () => {
-  return (
-    <NavbarStyle>
-      <ul>
-        <Link to="/">Home</Link>
-        <Link to="/game">Game</Link>
-      </ul>
-    </NavbarStyle>
-  );
-};
+const Navbar = () => (
+	<NavbarStyle>
+		<ul>
+			<Link to="/">Home</Link>
+		</ul>
+	</NavbarStyle>
+);
 
 export default Navbar;

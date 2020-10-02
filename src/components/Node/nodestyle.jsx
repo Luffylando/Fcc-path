@@ -1,9 +1,9 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const NodeStyle = styled.div`
   .node {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     border: 1px solid #000;
     margin: 1.5px;
   }
@@ -38,17 +38,17 @@ const NodeStyle = styled.div`
     }
 
     50% {
-      background-color: #b98cc1;
+      background-color: #E3C47B;
     }
 
     75% {
       transform: scale(1);
-      background-color: #b98cc1;
+      background-color: #E3C47B;
     }
 
     100% {
       transform: scale(1);
-      background-color: #b98cc1;
+      background-color: #E3C47B;
     }
   }
 
@@ -58,9 +58,9 @@ const NodeStyle = styled.div`
 
   .node-shortest-path {
     animation-name: shortestPath;
-    animation-duration: 1.5s;
-    animation-timing-function: ease-out;
-    animation-delay: 0;
+    animation-duration: 2s;
+    animation-timing-function: ease-in-out;
+    animation-delay: 0s;
     animation-direction: alternate;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
@@ -70,20 +70,20 @@ const NodeStyle = styled.div`
   @keyframes shortestPath {
     0% {
       content: "X";
-      transform: scale(0.6);
-      background-color: aquamarine;
+      transform: scale(0.8);
+      background-color: #9E50BA;
     }
 
     50% {
       content: "X";
       transform: scale(1);
-      background-color: aquamarine;
+      background-color: #9E50BA;
     }
 
     100% {
       content: "X";
       transform: scale(1);
-      background-color: aquamarine;
+      background-color: #9E50BA;
     }
   }
 `;

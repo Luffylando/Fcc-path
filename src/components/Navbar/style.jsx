@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const NavbarStyle = styled.header`
   border-bottom: 1px solid #c4c4c4;
